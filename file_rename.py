@@ -5,20 +5,25 @@ function : This script does bulk renaming
 import os
 import sys
 
-if len(sys.argv) == 3:
+run_ok = False
+if len(sys.argv) == 5:
     directory_name = sys.argv[1]
-    file_extension = sys.argv[2]
+    old_extension = sys.argv[2]
     name_pattern  = sys.argv[3]
-    print "Running jobs on directory: {} having extensions {}".format(directory_name, file_extension)
+    new_extension = sys.argv[4]
+    print "Running jobs on directory: {} having extensions {}".format(directory_name, old_extension)
+    run_ok = True
 
-else
-    print "python file_rename.py directory_name file_extension name_pattern"
+else:
+    print "SYNTAX : python file_rename.py directory_name matching_extension new_name_pattern new_extension"
+    pass
 
-list = os.listdir( directory_name )
-counter = 1
-for old_file in list:
-    if file_extension in old_file:
-        new_file = "test_"+ str( counter ) + ".txt"
-        os.rename( directory_name + "/"+ old_file, directory_name + "/" + new_file )
-        print "file renamed from {} to {}".format( old_file, new_file )
-        counter += 1
+if (run_ok):
+    list = os.listdir( directory_name )
+    counter = 1
+    for old_file in list:
+        if old_extension in old_file:
+            new_file = name_pattern + str( counter ) + "." + new_extension
+            os.rename( directory_name + "/"+ old_file, directory_name + "/" + new_file )
+            print "file renamed from {} to {}".format( old_file, new_file )
+            counter += 1
