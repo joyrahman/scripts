@@ -1,4 +1,6 @@
 ## Instructions:
+
+- Assumptions : username 'stack' with home directory /opt/stack
 - Copy all the scripts to `/path/to/devstack` directory. 
 - Copy the .conf files to home directory (~)
 
