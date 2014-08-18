@@ -1,0 +1,26 @@
+1. Use vagrant with virtual box
+- requiremetns : Virtualbox ,virtualbox extension pack, vagrant
+- Change the Vagrantfile configuration as below: 
+  config.vm.box = "hashicorp/precise64"
+
+2. Create user stack with home directory /opt/stack
+# adduser stack
+# sudo vim /etc/passwd
+---> set home directory to /opt/stack
+# sudo chown stack:stack /opt/stack
+# sudo vim /etc/sudoers
+stack   ALL=(ALL:ALL) NOPASSWD:ALL
+  
+3. Change the Vagrantfile in the host
+    config.ssh.username = "stack"
+    config.ssh.password = "stack123"
+    
+4. Do `vagrant ssh` and git clone devstack
+
+git clone https://github.com/openstack-dev/devstack.git
+cd devstack
+vim local.conf
+>> {paste the local.conf file from this repo}
+
+./stack.sh
+
