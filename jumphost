@@ -1,0 +1,6 @@
+ssh -A -t -l xyz elk02.xx.yy.zz \
+    -L 8080:localhost:8080 \
+ssh -A -t -l stack 10.241.1.161 \
+    -L 8080:localhost:80
+    
+    
