@@ -1,0 +1,14 @@
+#export OS_USERNAME=admin
+#export OS_PASSWORD=Wahv4quewi2me3
+export OS_TENANT_NAME=admin
+#export OS_AUTH_URL=https://10.241.1.164/auth/v1.0/
+export OS_AUTH_URL=http://127.0.0.1:8080/auth/v1.0
+#export ST_USER=$OS_USERNAME:$OS_USERNAME
+#export ST_KEY=$OS_PASSWORD
+export ST_USER=admin:admin
+export ST_KEY=admin
+export ST_AUTH=$OS_AUTH_URL
+#export OS_REGION_NAME=RegionOne
+
+export OS_STORAGE_URL=`python curl.py storage_url`
+export OS_AUTH_TOKEN=`python curl.py auth_token`
