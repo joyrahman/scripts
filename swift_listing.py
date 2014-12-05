@@ -1,15 +1,26 @@
+from webhdfs.webhdfs import WebHDFS
 import urllib2
 import requests
 import sys
-import os
+import os, tempfile
 import json
+import subprocess
+import time
+
+
+# webhdfs : http://hadoop.apache.org/docs/r1.0.4/webhdfs.html
+hdfs_server_name = "localhost"
+hdfs_server_port = 50070
+hdfs_user_name = "ubuntu"
+webhdfs = WebHDFS(hdfs_server_name, hdfs_server_port , hdfs_user_name)
+# swift parameters
 container_name = "movie"
 container_url= os.environ['OS_STORAGE_URL'] + "/" + container_name
 auth_token = os.environ['OS_AUTH_TOKEN']
-
 header_parameters = { 'X-Auth-Token': '{}'.format(auth_token)}
-#print os.environ['OS_AUTH_TOKEN']
 
+
+# Connect to the Swift Server
 directory_list = requests.get( container_url,  headers = header_parameters)
 #output = open('test.mp3','wb')
 #output.write(mp3file.read())
@@ -17,6 +28,12 @@ directory_list = requests.get( container_url,  headers = header_parameters)
 listing = str(directory_list.text).split("\n")
 listing =  filter(None, listing)
 i = 0 
+# create the container at hdfs
+hdfs_target_path = "/usr/" + hdfs_user_name + "/" + container_name
+webhdfs.mkdir(hdfs_target_path)
+
+
+
 for item in listing:
     print "{}".format(i)+ ":" +item
     i += 1
@@ -25,8 +42,18 @@ for item in listing:
     output = open(item, 'wb')
     output.write(remote_fp.read())
     output.close()
+    local_path = os.getcwd()+"/"+item
+    print local_path, " -> ", hdfs_target_path 
+    webhdfs.copyFromLocal(local_path,hdfs_target_path+"/"+item)
 
     
+    
+
+#cmd = 'hadoop fs -copyFromLocal {} '
+#p = subprocess.Popen('ls', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+#for line in p.stdout.readlines():
+#    print line,
+#retval = p.wait()    
 
 #for each item in the listing, copy the file and write back to a location with the same name 
 
