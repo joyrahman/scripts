@@ -5,8 +5,8 @@
 import requests
 import sys
 
-url = 'http://127.0.0.1:8080/auth/v1.0'
-header_parameters = {'x-Auth-User':'admin:admin','x-Auth-Key':'Wahv4quewi2me3'}
+url = 'http://10.241.1.164:8080/auth/v1.0'
+header_parameters = {'x-Auth-User':'admin:admin','x-Auth-Key':'admin'}
 r =  requests.get(url, headers = header_parameters)
 #print r.text
 #print r.headers

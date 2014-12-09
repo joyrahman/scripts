@@ -6,6 +6,28 @@ import os, tempfile
 import json
 import subprocess
 import time
+import logging
+
+# logging configuration
+logger = logging.getLogger('spam_application')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('time.log')
+fh.setLevel(logging.DEBUG)
+
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+#### START OF EXECUTION  #####
+logger.info('execution started')
 
 
 # webhdfs : http://hadoop.apache.org/docs/r1.0.4/webhdfs.html
@@ -14,7 +36,8 @@ hdfs_server_port = 50070
 hdfs_user_name = "ubuntu"
 webhdfs = WebHDFS(hdfs_server_name, hdfs_server_port , hdfs_user_name)
 # swift parameters
-container_name = "movie"
+#container_name = "movie"
+container_name = sys.argv[1]
 container_url= os.environ['OS_STORAGE_URL'] + "/" + container_name
 auth_token = os.environ['OS_AUTH_TOKEN']
 header_parameters = { 'X-Auth-Token': '{}'.format(auth_token)}
