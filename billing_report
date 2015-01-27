@@ -1,0 +1,42 @@
+	#src: https://github.com/zerovm/zwift-ui/blob/master/js/Zwift.js
+	
+	function billingReport(xNexeCdrLine) {
+
+			var report = {};
+
+			report.totalServerTime = xNexeCdrLine.split(',')[0].trim();
+			var nodesBillingInfo = xNexeCdrLine.split(',').splice(1);
+			report.nodes = [];
+
+			var j = 0;
+			for (var i = 0; i < nodesBillingInfo.length; i++) {
+				if (i % 2 == 0) {
+					report.nodes[j] = {};
+					report.nodes[j].nodeServerTime = nodesBillingInfo[i];
+				} else {
+					var nodeCdrResult = nodesBillingInfo[i].trim().split(' ');
+
+					report.nodes[j].systemTime = nodeCdrResult[0];
+					report.nodes[j].userTime = nodeCdrResult[1];
+
+					report.nodes[j].memoryUsed = nodeCdrResult[2];
+					report.nodes[j].SwapUsed = nodeCdrResult[3];
+
+					report.nodes[j].readsFromDisk = nodeCdrResult[2];
+					report.nodes[j].bytesReadFromDisk = nodeCdrResult[3];
+
+					report.nodes[j].writesToDisk = nodeCdrResult[4];
+					report.nodes[j].bytesWrittenToDisk = nodeCdrResult[5];
+					report.nodes[j].readsFromNetwork = nodeCdrResult[6];
+
+					report.nodes[j].bytesReadFromNetwork = nodeCdrResult[7];
+					report.nodes[j].writesToNetwork = nodeCdrResult[8];
+					report.nodes[j].bytesWrittenToNetwork = nodeCdrResult[9];
+					j++;
+				}
+			}
+
+			return report;
+		}
+	};
+
