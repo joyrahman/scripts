@@ -41,7 +41,7 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
 
     print "Total Exec Time: {}".format(totalServerTime)
     print_report(report)
-    write_to_csv(report)
+    #write_to_csv(report)
 
     #return report
 
