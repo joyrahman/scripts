@@ -73,7 +73,8 @@ def print_report(resp, job_no):
     sessions_cdr    = resp.headers['x-nexe-cdr-line']
     report = billing_report.get_billing_report(sessions_id, sessions_status, sessions_cdr)
     print "-------------"
-    print report
+    for item in report:
+        print item, "\n"
     print "-------------"
 
 def json_print(resp, job_no):
