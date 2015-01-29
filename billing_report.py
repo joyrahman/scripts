@@ -14,11 +14,11 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
     i = 0
     for j in xrange(0,len(nodesBillingInfo)-1, 2):
         record = {}
-        record['session_name'] = xNexeSystem[i]
+        record['id'] = xNexeSystem[i]
         #record['session_error'] = xNexeError[i]
-        record['session_status'] = xNexeStatus[i]
-        record['session_time'] = nodesBillingInfo[j]
-        record['session_attributes'] = nodesBillingInfo[j+1]
+        record['status'] = xNexeStatus[i]
+        record['time'] = nodesBillingInfo[j]
+        record['attrib'] = nodesBillingInfo[j+1]
         i += 1
         report.append(record)
 
