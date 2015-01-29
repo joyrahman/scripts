@@ -63,7 +63,7 @@ def print_resp(resp,job_no):
 
 
 def print_report(resp, job_no):
-
+    pass
 
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
