@@ -8,7 +8,7 @@ def print_report(report):
 
 def write_to_csv(csv_data):
 
-    directory_name = "~/report"
+    directory_name = "/home/cloudsys/report"
     time_format = '%Y%m%d_%H%M%S'
     current_time = time.strftime(time_format)
     file_extension = "csv"
