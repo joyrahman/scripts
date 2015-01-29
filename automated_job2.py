@@ -68,7 +68,7 @@ def print_report(resp, job_no):
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
     print json.dumps(resp.headers.__dict__, indent=2)
-    print json.dumps(resp.__dict__, indent=2)
+    print resp.__dict__
 
 def usage():
     print 'automate_script.py <container_name> <json_name> <interval> <no_of_sessions>'
