@@ -2,7 +2,7 @@
 
 
 
-def billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
+def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
     report = []
     totalServerTime, nodesBillingInfo = xNexeCdrLine.split(',', 1)
 
@@ -35,7 +35,7 @@ def main():
 
     system_name = "map-1,map-2,map-3,reduce-1,reduce-2"
     system_status = "ok,ok,ok,ok,ZeroVM did not run"
-    report = billing_report(system_name, system_status, billing_string)
+    report = get_billing_report(system_name, system_status, billing_string)
     for item in report:
         print item, "\n"
 

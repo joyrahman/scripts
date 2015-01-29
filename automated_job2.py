@@ -1,11 +1,12 @@
 #!/usr/bin/env python
- 
+import billing_report
 import requests
 import json
 import sys
 import os
 import random
 import time
+
 def get_url_and_token():
     user = os.getenv('ST_USER', None)
     auth = os.getenv('ST_AUTH', None)
@@ -60,6 +61,10 @@ def print_resp(resp,job_no):
             #print "session_time: ",item
         i += 1
 
+
+def print_report(resp, job_no):
+
+
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
     print json.dumps(resp.headers.__dict__, indent=2)
@@ -70,49 +75,52 @@ def usage():
 
 
 
-##### MAIN FILE ###########
 
-# either run as 'zexec <local file>' or zexec <container> <job>'
-json_file = ''
-url, token = get_url_and_token()
- 
-## user defined params
-
-obj = ["wordcount_20.json","wordcount_80.json"]
-popularity_factor = 80
-resp_list = []
-manifest_dir = "manifest"
+def main():
 
 
-# Format : python automate_job.py <interval> <no_of_sessions>
-if len(sys.argv) == 3:
-    interval = int(sys.argv[1])
-    no_of_sessions = int(sys.argv[2])
-    
-    for i in range(0, no_of_sessions):
-        x =  random.randrange(0,99)
-        if x<= popularity_factor:
-            json_file = get_object(url, token, manifest_dir, obj[0])
-        else:
-            json_file = get_object(url, token, manifest_dir, obj[1])
-        #execute the job
+    json_file = ''
+    url, token = get_url_and_token()
+
+    ## user defined params
+
+    obj = [ "wordcount_20.json" , "wordcount_80.json" ]
+    popularity_factor = 80
+    resp_list = []
+    manifest_dir = "manifest"
+
+
+    # usage : python automate_job.py <interval> <no_of_sessions>
+    if len(sys.argv) == 3:
+        interval = int(sys.argv[1])
+        no_of_sessions = int(sys.argv[2])
+
+        for i in range(0, no_of_sessions):
+            x =  random.randrange(0,99)
+            if x<= popularity_factor:
+                json_file = get_object(url, token, manifest_dir, obj[0])
+            else:
+                json_file = get_object(url, token, manifest_dir, obj[1])
+            #execute the job
+            resp = zebra_execute(url, token, json_file)
+            resp_list.append(resp)
+            time.sleep(interval)
+
+    elif len(sys.argv) == 1:
+        manifest_dir = "debug"
+        json_file = get_object(url, token, manifest_dir , obj[0])
         resp = zebra_execute(url, token, json_file)
         resp_list.append(resp)
-        time.sleep(interval)
-elif len(sys.argv) == 2:
-    manifest_dir = "debug"
-    json_file = get_object(url, token, manifest_dir , obj[0])
-    resp = zebra_execute(url, token, json_file)
-    resp_list.append(resp)
 
-else:
-    usage()
+    else:
+        usage()
 
-jobcounter = 1
-for item in resp_list:
-    #print_resp (item,jobcounter)
-    json_print(item, jobcounter)
-    jobcounter += 1
+    jobcounter = 1
+    for item in resp_list:
+        #print_resp (item,jobcounter)
+        json_print(item, jobcounter)
+        #print_report(item, jobcounter)
+        jobcounter += 1
 #resp = zebra_execute(url, token, json_file)
 
 #print type(resp)
@@ -175,4 +183,8 @@ Example:
 #print cdr.__dict__
 
 #print resp.header
+
+
+def if __name__ == '__main__':
+    main()
 
