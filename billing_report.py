@@ -2,29 +2,42 @@
 
 
 
-def billing_report(xNexeCdrLine):
+def billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
     report = []
     totalServerTime, nodesBillingInfo = xNexeCdrLine.split(',', 1)
 
-
-    j = 0  #for in in range(0, len(nodesBillingInfo))
+    xNexeSystem = xNexeSystem.split(',')
+    xNexeStatus = xNexeStatus.split(',')
     nodesBillingInfo = nodesBillingInfo.split(',')
 
+    i = 0
     for j in xrange(0,len(nodesBillingInfo)-1, 2):
         record = {}
+        record['session_name'] = xNexeSystem[i]
+        record['session_status'] = xNexeStatus[i]
         record['session_time'] = nodesBillingInfo[j]
         record['session_attributes'] = nodesBillingInfo[j+1]
-        #print "session_time-{}:{}".format(j, session_time)
-        #j += 2
+        i += 1
         report.append(record)
 
-    print report
+    return report
+
+
+
+
 
 
 def main():
-    test_string = "4.251, 3.994, 0.11 3.53 1262 75929984 34 199 0 0 0 0, 4.44, 0.22 1.55 1567 55928884 76 233 0 0 0 0"
-    billing_report(test_string)
+    billing_string = "4.251, 3.994, 0.11 3.53 1262 75929984 34 199 0 0 0 0, \
+    4.44, 5.22 1.55 1567 55928884 76 233 0 0 0 0, \
+    6.251, 0.11 3.53 1262 75929984 34 199 0 0 0 0, \
+    7.251, 0.11 3.53 1262 75929984 34 199 0 0 0 0"
 
+    system_name = "map-1,map-2,map-3,reduce-1,reduce-2"
+    system_status = "ok,ok,ok,ok,ZeroVM did not run"
+    report = billing_report(system_name, system_status, billing_string)
+    for item in report:
+        print item, "\n"
 
 if __name__ == '__main__':
     main()
