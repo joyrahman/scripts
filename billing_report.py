@@ -1,5 +1,8 @@
 # __author__ = 'joy'
 
+def print_report(report):
+    for item in report:
+        print item
 
 
 def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
@@ -22,7 +25,11 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
         i += 1
         report.append(record)
 
-    return report
+    print "Total Exec Time: {}".format(totalServerTime)
+    print_report(report)
+
+    #return report
+
 
 
 
