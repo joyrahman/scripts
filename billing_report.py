@@ -2,12 +2,12 @@
 
 
 
-def get_billing_report(xNexeSystem,xNexeError, xNexeStatus,  xNexeCdrLine):
+def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
     report = []
     totalServerTime, nodesBillingInfo = xNexeCdrLine.split(',', 1)
 
     xNexeSystem = xNexeSystem.split(',')
-    xNexeError  = xNexeError.split(',')
+    #xNexeError  = xNexeError.split(',')
     xNexeStatus = xNexeStatus.split(',')
     nodesBillingInfo = nodesBillingInfo.split(',')
 
@@ -15,7 +15,7 @@ def get_billing_report(xNexeSystem,xNexeError, xNexeStatus,  xNexeCdrLine):
     for j in xrange(0,len(nodesBillingInfo)-1, 2):
         record = {}
         record['session_name'] = xNexeSystem[i]
-        record['session_error'] = xNexeError[i]
+        #record['session_error'] = xNexeError[i]
         record['session_status'] = xNexeStatus[i]
         record['session_time'] = nodesBillingInfo[j]
         record['session_attributes'] = nodesBillingInfo[j+1]
