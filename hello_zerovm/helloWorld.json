@@ -1,0 +1,31 @@
+[
+    {
+        "name": "helloworld",
+        "exec": {
+            "path": "file://python:python",
+            "env": {
+                "modulo_base": "1"
+             }
+        },
+        "file_list": [
+            {
+                "device": "stdin",
+                "path": "swift://~/helloWorld/helloWorld.py"
+            },
+            {
+                "device": "stdout",
+                "path": "swift://~/helloWorld/output*.txt",
+                "content_type": "text/plain"
+            },
+           {
+                "device": "stderr",
+                "path": "swift://~/helloWorld/*.err",
+                "content_type": "text/plain"
+            },
+            {
+                "device": "python"
+            }
+        ]
+        }
+
+]

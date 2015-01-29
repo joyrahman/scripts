@@ -1,0 +1,8 @@
+export OS_TENANT_NAME=joyrahman@gmail.com
+export OS_AUTH_URL=https://zebra.zerovm.org/auth/v1.0
+#export OS_AUTH_URL=http://127.0.0.1:8080/auth/v1.0
+export ST_USER=$OS_TENANT_NAME:g_111592155632384765034
+export ST_KEY=0fbdbaac-53a4-475c-9898-17c7924c0f88
+export ST_AUTH=$OS_AUTH_URL
+export OS_STORAGE_URL=`python curl.py storage_url`
+export OS_AUTH_TOKEN=`python curl.py auth_token`

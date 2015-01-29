@@ -44,8 +44,11 @@ hdfs_user_name = "cloudsys"
 #container_name = "movie"
 container_name = sys.argv[1]
 dest_container = sys.argv[2]
-executable_mapper = sys.argv[3]
-executable_reducer = sys.argv[4]
+#jar_collection_name = sys.argv[3]
+jar_collection_name = "/usr/local/hadoop-1.2.1/hadoop*examples*.jar"
+jar_main_class = "wordcount"
+#jar_main_class = sys.argv[4]
+#hadoop jar {jar_collection_name} {jar_main_class} {input_file} {output_dir}
 executable_jar = "/usr/local/hadoop-1.2.1/contrib/streaming/hadoop-*streaming*.jar"
 container_url= os.environ['OS_STORAGE_URL'] + "/" + container_name
 auth_token = os.environ['OS_AUTH_TOKEN']
@@ -100,10 +103,9 @@ logger.info('*** copy done ***')
 logger.info('*** execution  started ***')
 input_dir =  hdfs_target_path
 output_dir = hdfs_target_path + "/out"
-command_str = "hadoop jar {} \
-     -file {}    -mapper {} \
-     -file {}   -reducer {} \
-     -input {} -output {}".format(executable_jar,executable_mapper, executable_mapper,executable_reducer,executable_reducer,input_dir,output_dir)
+
+#hadoop jar {jar_collection_name} {jar_main_class} {input_file} {output_dir}
+command_str = "hadoop jar {} {} {} {}".format(jar_collection_name, jar_main_class, input_dir, output_dir)
 p = subprocess.Popen( command_str , shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 for line in p.stdout.readlines():
     print line
