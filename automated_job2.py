@@ -63,7 +63,15 @@ def print_resp(resp,job_no):
 
 
 def print_report(resp, job_no):
-    pass
+    #x-nexe-system
+    #x-nexe-error
+    #x-nexe-cdr-line
+    #x-nexe-status
+    sessions_id     = resp['x-nexe-system']
+    sessions_error  = resp['x-nexe-error']
+    sessions_status = resp['x-nexe-status']
+    sessions_cdr    = resp['x-nexe-cdr-line']
+    billing_report.get_billing_report(sessions_id, sessions_error, sessions_status, sessions_cdr)
 
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
