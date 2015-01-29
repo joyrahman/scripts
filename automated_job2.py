@@ -71,8 +71,11 @@ def print_report(resp, job_no):
     sessions_error  = resp['x-nexe-error']
     sessions_status = resp['x-nexe-status']
     sessions_cdr    = resp['x-nexe-cdr-line']
-    billing_report.get_billing_report(sessions_id, sessions_error, sessions_status, sessions_cdr)
-
+    report = billing_report.get_billing_report(sessions_id, sessions_error, sessions_status, sessions_cdr)
+    print "-------------"
+    print report
+    print "-------------"
+    
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
     print json.dumps(resp.headers.__dict__, indent=2)
@@ -128,7 +131,7 @@ def main():
     for item in resp_list:
         #print_resp (item,jobcounter)
         json_print(item, jobcounter)
-        #print_report(item, jobcounter)
+        print_report(item, jobcounter)
         jobcounter += 1
 #resp = zebra_execute(url, token, json_file)
 
