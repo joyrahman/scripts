@@ -1,9 +1,21 @@
 # __author__ = 'joy'
-
+import csv
+import time
 def print_report(report):
     for item in report:
         print item
 
+def write_to_csv(csv_data):
+
+    directory_name = "~/report"
+    time_format = '%Y%m%d_%H%M%S'
+    current_time = time.strftime(time_format)
+    file_extension = "csv"
+
+    output_file_name = "exec_report_{}_.{}".format(current_time, file_extension)
+    with open(directory_name + "/" + output_file_name, 'w') as fp:
+        a = csv.writer(fp, delimiter=',')
+        a.writerows(csv_data)
 
 def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
     report = []
@@ -27,6 +39,7 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
 
     print "Total Exec Time: {}".format(totalServerTime)
     print_report(report)
+    write_to_csv(report)
 
     #return report
 
