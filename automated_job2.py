@@ -23,8 +23,8 @@ def worker(url, token, json_file, job_id):
     except Exception as Inst:
         logging.debug ("Got some Error as worker>>",Inst)
     finally:
-        #print_report(resp)
-        print_resp(resp,job_id)
+        print_report(resp)
+        #print_resp(resp,job_id)
 
 
 
