@@ -6,6 +6,23 @@ import sys
 import os
 import random
 import time
+import threading
+import logging
+
+logging.basicConfig(level=logging.DEBUG,\
+        format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
+
+resp_list = []
+def worker(url, token, json_file):
+    global resp_list
+    logging.debug("running the job")
+    try:
+        resp = zebra_execute(url,token,json_file)
+        resp_list.append(resp)
+    except Exception as Inst:
+        print "Got some Error as worker"
+
+
 
 def get_url_and_token():
     user = os.getenv('ST_USER', None)
@@ -32,8 +49,10 @@ def zebra_execute(endpoint, token, manifest):
             'X-ZeroVM-Execute': '1.0'},
             #'X-Zerovm-Deferred': 'always'},
         data=manifest)
- 
- 
+
+
+
+
 def get_object(endpoint, token, container, object):
     resp = requests.get(
         "%s/%s/%s" % (endpoint, container, object),
@@ -101,7 +120,8 @@ def main():
 
     obj = [ "wordcount_20.json" , "wordcount_80.json" ]
     popularity_factor = 80
-    resp_list = []
+    #resp_list = []
+    global resp_list
     manifest_dir = "manifest"
 
 
@@ -112,16 +132,24 @@ def main():
         popularity_factor = int(sys.argv[3])
 
         for i in range(0, no_of_sessions):
+
+            # pick the random number and match agains popularity factor
             x =  random.randrange(0,99)
             if x<= popularity_factor:
                 json_file = get_object(url, token, manifest_dir, obj[0])
             else:
                 json_file = get_object(url, token, manifest_dir, obj[1])
+
             #execute the job
-            resp = zebra_execute(url, token, json_file)
-            resp_list.append(resp)
+            # create a thread and execute the job
+            t_worker = threading.Thread(target=worker, args=( url, token, json_file))
+            t_worker.start()
+            #
+            #resp = zebra_execute(url, token, json_file)
+            #resp_list.append(resp)
             time.sleep(interval)
 
+    # for running the debug run
     elif len(sys.argv) == 1:
         manifest_dir = "debug"
         json_file = get_object(url, token, manifest_dir , obj[0])
@@ -137,69 +165,6 @@ def main():
         json_print(item, jobcounter)
         print_report(item, jobcounter)
         jobcounter += 1
-#resp = zebra_execute(url, token, json_file)
-
-#print type(resp)
-#print type(resp.__class__.__dict__)
-
-#print resp()
-#for x in iter(resp):
-#    print x
-
-#print dir(resp.headers)
-#print resp.__dict__ 
-#print resp.content
-#print resp.text
-#print resp.headers.__dict__
-
-
-'''
-X-Nexe-Cdr-Line
-
-Contains an accounting report from ZeroVM execution report.
-
-Example:
-
-    X-Nexe-Cdr-Line: 4.251, 3.994, 0.11 3.53 1262 75929984 34 199 0 0 0 0
-    Note: current accounting stats format is:
-
-    <ttotal>, <tnode>, <node_acc>, <tnode>, <node_acc>, <tnode>, <node_acc>,.....
-    where:
-
-    <ttotal> - total time, sec
-    <tnode> - total node time, sec
-    <node_acc> - node accounting line
-    Note: current node accounting line format is:
-
-    <sys> <user> <reads> <rbytes> <writes> <wbytes> <nreads> <nrbytes> <nwrites> <nwbytes>
-    where:
-
-    <sys> - system time, sec
-    <user> - user time, sec
-    <reads> - reads from disk
-    <rbytes> - read bytes from disk
-    <writes> - writes to disk
-    <wbytes> - written bytes to disk
-    <nreads> - reads from network
-    <nrbytes> - read bytes from network
-    <nwrites> - writes to network
-    <nwbytes> - written bytes to network
-'''
-#print "Status: " + resp.headers['X-Nexe-System']
-#print "CDR:" + resp.headers['X-Nexe-Cdr-Line']
-
-
-#print resp.getheader('X-Nexe-System')
-#for key in resp.headers.keys():
-#    print key
-#print json.dumps(resp.headers)
-#for k,v,* in resp.headers:
-#    print k, "->", v
-
-#print cdr.__dict__
-
-#print resp.header
-
 
 if __name__ == '__main__':
     main()

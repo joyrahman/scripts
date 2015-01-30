@@ -1,0 +1,63 @@
+#resp = zebra_execute(url, token, json_file)
+
+#print type(resp)
+#print type(resp.__class__.__dict__)
+
+#print resp()
+#for x in iter(resp):
+#    print x
+
+#print dir(resp.headers)
+#print resp.__dict__
+#print resp.content
+#print resp.text
+#print resp.headers.__dict__
+
+
+'''
+X-Nexe-Cdr-Line
+
+Contains an accounting report from ZeroVM execution report.
+
+Example:
+
+    X-Nexe-Cdr-Line: 4.251, 3.994, 0.11 3.53 1262 75929984 34 199 0 0 0 0
+    Note: current accounting stats format is:
+
+    <ttotal>, <tnode>, <node_acc>, <tnode>, <node_acc>, <tnode>, <node_acc>,.....
+    where:
+
+    <ttotal> - total time, sec
+    <tnode> - total node time, sec
+    <node_acc> - node accounting line
+    Note: current node accounting line format is:
+
+    <sys> <user> <reads> <rbytes> <writes> <wbytes> <nreads> <nrbytes> <nwrites> <nwbytes>
+    where:
+
+    <sys> - system time, sec
+    <user> - user time, sec
+    <reads> - reads from disk
+    <rbytes> - read bytes from disk
+    <writes> - writes to disk
+    <wbytes> - written bytes to disk
+    <nreads> - reads from network
+    <nrbytes> - read bytes from network
+    <nwrites> - writes to network
+    <nwbytes> - written bytes to network
+'''
+#print "Status: " + resp.headers['X-Nexe-System']
+#print "CDR:" + resp.headers['X-Nexe-Cdr-Line']
+
+
+#print resp.getheader('X-Nexe-System')
+#for key in resp.headers.keys():
+#    print key
+#print json.dumps(resp.headers)
+#for k,v,* in resp.headers:
+#    print k, "->", v
+
+#print cdr.__dict__
+
+#print resp.header
+
