@@ -9,8 +9,7 @@ import time
 import threading
 #import logging
 
-#logging.basicConfig(level=logging.DEBUG,\
-        format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
+#logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
 def worker(url, token, json_file, job_id):
