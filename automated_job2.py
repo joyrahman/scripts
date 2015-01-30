@@ -24,7 +24,7 @@ def worker(url, token, json_file, job_id):
         logging.debug ("Got some Error as worker>>",Inst)
     finally:
         #print_report(resp)
-        #print_resp(resp,job_id)
+        print_resp(resp,job_id)
 
 
 
