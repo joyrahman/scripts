@@ -41,9 +41,10 @@ def get_billing_report(xNexeSystem,xNexeError, xNexeStatus,  xNexeCdrLine):
         record['attrib'] = nodesBillingInfo[j+1]
         '''
         if len(xNexeError) > 1:
-            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1],xNexeError[i] ]
+            #record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1],xNexeError[i] ]
+            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], xNexeError[i] ]
         else:    
-            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1] ]
+            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j] ]
 
         i += 1
         report.append(record)

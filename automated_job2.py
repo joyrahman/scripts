@@ -47,19 +47,19 @@ def get_object(endpoint, token, container, object):
 
 def print_resp(resp,job_no):
     #print resp.content
-    #print resp.headers.__dict__
     print resp.headers.__dict__
-    print "\nJob {}\n".format(job_no)
-    cdr =  resp.headers['X-Nexe-Cdr-Line']
-    total, session_data = cdr.split(',',1)
-    print "total_time:", total
-    session_data = session_data.split(',')
-    i = 0
-    for item in session_data:
-        if i%2 == 0:
-            pass
+    #print resp.headers.__dict__
+    #print "\nJob {}\n".format(job_no)
+    #cdr =  resp.headers['X-Nexe-Cdr-Line']
+    #total, session_data = cdr.split(',',1)
+    #print "total_time:", total
+    #session_data = session_data.split(',')
+    #i = 0
+    #for item in session_data:
+     #   if i%2 == 0:
+     #       pass
             #print "session_time: ",item
-        i += 1
+     #   i += 1
 
 
 def print_report(resp, job_no):
@@ -82,10 +82,11 @@ def print_report(resp, job_no):
 def json_print(resp, job_no):
     print "job#{}".format(job_no)
     print json.dumps(resp.headers.__dict__, indent=2)
-    print resp.__dict__
+    #print resp.__dict__
 
 def usage():
-    print 'automate_script.py <container_name> <json_name> <interval> <no_of_sessions>'
+    #print 'automate_script.py <container_name> <json_name> <interval> <no_of_sessions>'
+    print 'python automated_job2.py {interval} {no_of_sessions} {popularity}'
     sys.exit(1)
 
 
