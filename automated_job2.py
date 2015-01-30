@@ -13,13 +13,13 @@ logging.basicConfig(level=logging.DEBUG,\
         format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
-def worker(url, token, json_file):
+def worker(url, token, json_file, job_id):
     global resp_list
     logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
         resp_list.append(resp)
-        #print_report(resp)
+        print_report(resp, job_id)
     except Exception as Inst:
         print "Got some Error as worker"
 
@@ -87,7 +87,8 @@ def print_report(resp, job_no=''):
     #x-nexe-error
     #x-nexe-cdr-line
     #x-nexe-status
-    print resp.__dict__
+    #print resp.__dict__
+    print("###",job_no,"###")
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
@@ -145,7 +146,7 @@ def main():
 
             #execute the job
             # create a thread and execute the job
-            t_worker = threading.Thread(target=worker, args=( url, token, json_file))
+            t_worker = threading.Thread(target=worker, args=( url, token, json_file, i))
             t_worker.start()
             #
             #resp = zebra_execute(url, token, json_file)
@@ -162,12 +163,12 @@ def main():
     else:
         usage()
 
-    jobcounter = 1
-    for item in resp_list:
+    #jobcounter = 1
+    #for item in resp_list:
         #print_resp (item,jobcounter)
         #json_print(item, jobcounter)
-        print_report(item, jobcounter)
-        jobcounter += 1
+     #   print_report(item, jobcounter)
+     #   jobcounter += 1
 
 if __name__ == '__main__':
     main()
