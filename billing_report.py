@@ -2,9 +2,11 @@
 import csv
 import time
 import os
+from tabulate import tabulate
 def print_report(report):
-    for item in report:
-        print item
+    print tabulate(report, headers=["ID","Status", "Time", "Attrib"])
+    #for item in report:
+    #    print item
 
 def write_to_csv(csv_data):
 
@@ -30,12 +32,16 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
 
     i = 0
     for j in xrange(0,len(nodesBillingInfo)-1, 2):
+        '''
         record = {}
         record['id'] = xNexeSystem[i]
         #record['session_error'] = xNexeError[i]
         record['status'] = xNexeStatus[i]
         record['time'] = nodesBillingInfo[j]
         record['attrib'] = nodesBillingInfo[j+1]
+        '''
+        record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1] ]
+
         i += 1
         report.append(record)
 
