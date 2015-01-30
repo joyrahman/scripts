@@ -103,10 +103,11 @@ def main():
     manifest_dir = "manifest"
 
 
-    # usage : python automate_job.py <interval> <no_of_sessions>
+    # usage : python automate_job.py <interval> <no_of_sessions> <popularity_factor>
     if len(sys.argv) == 3:
         interval = int(sys.argv[1])
         no_of_sessions = int(sys.argv[2])
+        popularity_factor = int(sys.argv[3])
 
         for i in range(0, no_of_sessions):
             x =  random.randrange(0,99)
