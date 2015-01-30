@@ -74,7 +74,7 @@ def print_resp(resp,job_no):
     #print resp.headers.__dict__
 
     for key in resp.headers.keys():
-        print key
+        print "job:",job_no, key
     #print resp.headers['X-Nexe-Cdr-Line']
     #print resp.headers.__dict__
     #print "\nJob {}\n".format(job_no)
