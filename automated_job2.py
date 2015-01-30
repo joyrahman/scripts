@@ -104,7 +104,7 @@ def main():
 
 
     # usage : python automate_job.py <interval> <no_of_sessions> <popularity_factor>
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 4:
         interval = int(sys.argv[1])
         no_of_sessions = int(sys.argv[2])
         popularity_factor = int(sys.argv[3])
