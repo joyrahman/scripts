@@ -7,22 +7,23 @@ import os
 import random
 import time
 import threading
-import logging
+#import logging
 
-logging.basicConfig(level=logging.DEBUG,\
+#logging.basicConfig(level=logging.DEBUG,\
         format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
 def worker(url, token, json_file, job_id):
     global resp_list
-    logging.debug("running the job")
+    #logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
         print_report(resp)
         #resp_list.append(resp)
         #print_report(resp)
     except Exception as Inst:
-        logging.debug ("Got some Error as worker>>",Inst)
+        #logging.debug ("Got some Error as worker>>",Inst)
+        print Inst
     #finally:
      #   print_report(resp)
         #print_resp(resp,job_id)
