@@ -21,12 +21,12 @@ def write_to_csv(csv_data):
         a = csv.writer(fp, delimiter=',')
         a.writerows(csv_data)
 
-def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
+def get_billing_report(xNexeSystem,xNexeError, xNexeStatus,  xNexeCdrLine):
     report = []
     totalServerTime, nodesBillingInfo = xNexeCdrLine.split(',', 1)
 
     xNexeSystem = xNexeSystem.split(',')
-    #xNexeError  = xNexeError.split(',')
+    xNexeError  = xNexeError.split(',')
     xNexeStatus = xNexeStatus.split(',')
     nodesBillingInfo = nodesBillingInfo.split(',')
 
@@ -40,7 +40,10 @@ def get_billing_report(xNexeSystem, xNexeStatus,  xNexeCdrLine):
         record['time'] = nodesBillingInfo[j]
         record['attrib'] = nodesBillingInfo[j+1]
         '''
-        record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1] ]
+        if len(xNexeError) > 1:
+            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1],xNexeError[i] ]
+        else:    
+            record = [ xNexeSystem[i], xNexeStatus[i], nodesBillingInfo[j], nodesBillingInfo[j+1] ]
 
         i += 1
         report.append(record)
