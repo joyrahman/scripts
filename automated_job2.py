@@ -19,6 +19,7 @@ def worker(url, token, json_file):
     try:
         resp = zebra_execute(url,token,json_file)
         resp_list.append(resp)
+        print_report(resp)
     except Exception as Inst:
         print "Got some Error as worker"
 
@@ -81,7 +82,7 @@ def print_resp(resp,job_no):
      #   i += 1
 
 
-def print_report(resp, job_no):
+def print_report(resp, job_no=''):
     #x-nexe-system
     #x-nexe-error
     #x-nexe-cdr-line
