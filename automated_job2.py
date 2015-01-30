@@ -23,7 +23,8 @@ def worker(url, token, json_file, job_id):
     except Exception as Inst:
         logging.debug ("Got some Error as worker>>",Inst)
     finally:
-        print_report(resp)
+        #print_report(resp)
+        print_resp(resp,job_id)
 
 
 
@@ -70,7 +71,8 @@ def get_object(endpoint, token, container, object):
 
 def print_resp(resp,job_no):
     #print resp.content
-    print resp.headers.__dict__
+    #print resp.headers.__dict__
+    print resp.headers['X-Nexe-Cdr-Line']
     #print resp.headers.__dict__
     #print "\nJob {}\n".format(job_no)
     #cdr =  resp.headers['X-Nexe-Cdr-Line']
