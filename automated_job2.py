@@ -19,7 +19,7 @@ def worker(url, token, json_file):
     try:
         resp = zebra_execute(url,token,json_file)
         resp_list.append(resp)
-        print_report(resp)
+        #print_report(resp)
     except Exception as Inst:
         print "Got some Error as worker"
 
@@ -164,7 +164,7 @@ def main():
     jobcounter = 1
     for item in resp_list:
         #print_resp (item,jobcounter)
-        json_print(item, jobcounter)
+        #json_print(item, jobcounter)
         print_report(item, jobcounter)
         jobcounter += 1
 
