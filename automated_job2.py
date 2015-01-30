@@ -175,8 +175,8 @@ def main():
         usage()
 
 
-    for t in thread_list:
-        t.join()
+    # for t in thread_list:
+    #     t.join()
     signal = True
 
     while(signal):
