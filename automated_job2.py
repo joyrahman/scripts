@@ -87,6 +87,7 @@ def print_report(resp, job_no=''):
     #x-nexe-error
     #x-nexe-cdr-line
     #x-nexe-status
+    print resp.__dict__
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
