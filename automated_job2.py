@@ -71,7 +71,10 @@ def get_object(endpoint, token, container, object):
 
 def print_resp(resp,job_no):
     #print resp.content
-    print resp.headers.__dict__
+    #print resp.headers.__dict__
+
+    for key in resp.headers.keys():
+        print key
     #print resp.headers['X-Nexe-Cdr-Line']
     #print resp.headers.__dict__
     #print "\nJob {}\n".format(job_no)
