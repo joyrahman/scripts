@@ -19,9 +19,9 @@ def worker(url, token, json_file, job_id):
     try:
         resp = zebra_execute(url,token,json_file)
         resp_list.append(resp)
-        print_report(resp, job_id)
+        #print_report(resp, job_id)
     except Exception as Inst:
-        print "Got some Error as worker"
+        logging.debug ("Got some Error as worker")
 
 
 
@@ -119,7 +119,7 @@ def main():
 
     json_file = ''
     url, token = get_url_and_token()
-
+    max_duration = 120
     ## user defined params
 
     obj = [ "wordcount_20.json" , "wordcount_80.json" ]
@@ -127,7 +127,7 @@ def main():
     #resp_list = []
     global resp_list
     manifest_dir = "manifest"
-
+    thread_list = []
 
     # usage : python automate_job.py <interval> <no_of_sessions> <popularity_factor>
     if len(sys.argv) == 4:
@@ -148,10 +148,12 @@ def main():
             # create a thread and execute the job
             t_worker = threading.Thread(target=worker, args=( url, token, json_file, i))
             t_worker.start()
+            thread_list.append(t_worker)
             #
             #resp = zebra_execute(url, token, json_file)
             #resp_list.append(resp)
             time.sleep(interval)
+
 
     # for running the debug run
     elif len(sys.argv) == 1:
@@ -163,12 +165,16 @@ def main():
     else:
         usage()
 
-    #jobcounter = 1
-    #for item in resp_list:
+
+    for t in thread_list:
+        t.join()
+
+    jobcounter = 1
+    for item in resp_list:
         #print_resp (item,jobcounter)
         #json_print(item, jobcounter)
-     #   print_report(item, jobcounter)
-     #   jobcounter += 1
+        print_report(item, jobcounter)
+        jobcounter += 1
 
 if __name__ == '__main__':
     main()
