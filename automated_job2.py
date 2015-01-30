@@ -178,21 +178,21 @@ def main():
 
     # for t in thread_list:
     #     t.join()
-    signal = True
+    # signal = True
+    #
+    # while(signal):
+    #     for t in thread_list:
+    #         if not t.isAlive():
+    #             signal = False
+    #
+    #     time.sleep(20)
 
-    while(signal):
-        for t in thread_list:
-            if not t.isAlive():
-                signal = False
-
-        time.sleep(20)
-
-    jobcounter = 1
-    for item in resp_list:
-            #     #print_resp (item,jobcounter)
-            #     #json_print(item, jobcounter)
-        print_report(item, jobcounter)
-        jobcounter += 1
+    # jobcounter = 1
+    # for item in resp_list:
+    #         #     #print_resp (item,jobcounter)
+    #         #     #json_print(item, jobcounter)
+    #     print_report(item, jobcounter)
+    #     jobcounter += 1
 
 if __name__ == '__main__':
     main()
