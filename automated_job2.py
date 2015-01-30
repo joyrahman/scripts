@@ -18,10 +18,13 @@ def worker(url, token, json_file, job_id):
     logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
-        resp_list.append(resp)
-        print_report(resp)
+        #resp_list.append(resp)
+        #print_report(resp)
     except Exception as Inst:
-        logging.debug ("Got some Error as worker")
+        logging.debug ("Got some Error as worker>>",Inst)
+    finally:
+        print_report(resp)
+
 
 
 
@@ -166,8 +169,8 @@ def main():
         usage()
 
 
-    for t in thread_list:
-        t.join()
+    #for t in thread_list:
+    #    t.join()
 
     # jobcounter = 1
     # for item in resp_list:
