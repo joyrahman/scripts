@@ -185,10 +185,12 @@ def main():
 
 
             elif x<= popularity_factor:
-                json_file = get_object(url, token, manifest_dir, obj[0])
+                p = random.randrange(0,2)
+                json_file = get_object(url, token, manifest_dir, obj[p])
                 manifest_id = 0
             else:
-                json_file = get_object(url, token, manifest_dir, obj[1])
+                p = random.randrange(3,10)
+                json_file = get_object(url, token, manifest_dir, obj[p])
                 manifest_id = 1
 
             #execute the job
