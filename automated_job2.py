@@ -12,13 +12,13 @@ import threading
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
-def worker(url, token, json_file, job_id):
+def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
     #logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
         print resp
-        print_report(resp, job_id)
+        print_report(resp, job_id, manifest_id)
         #json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
@@ -94,20 +94,23 @@ def print_resp(resp,job_no):
      #   i += 1
 
 
-def print_report(resp, job_no=''):
+def print_report(resp, job_no='',manifest_id=0):
     #x-nexe-system
     #x-nexe-error
     #x-nexe-cdr-line
     #x-nexe-status
     #print resp.__dict__
-    print("-------Job:",job_no,"---------")
+    #print("-------Job:",job_no,"---------")
+    totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
+    print ("{}, {}, {}").format(job_no, manifest_id, totalExecutionTime)
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
         sessions_error  = resp.headers['x-nexe-error']
     sessions_status = resp.headers['x-nexe-status']
     sessions_cdr    = resp.headers['x-nexe-cdr-line']
-    billing_report.get_billing_report(sessions_id, sessions_error, sessions_status, sessions_cdr)
+    #billing_report.get_billing_report(sessions_id, sessions_error, sessions_status, sessions_cdr)
+
     # print "-------------"
     # for item in report:
     #     print item, "\n"
@@ -158,6 +161,7 @@ def main():
         no_of_sessions = int(sys.argv[2])
         popularity_factor = int(sys.argv[3])
         z = 0
+        manifest_id = -1
         for i in range(0, no_of_sessions):
 
             # pick the random number and match agains popularity factor
@@ -166,6 +170,7 @@ def main():
             if popularity_factor == 50:
                 p = z%2
                 json_file = get_object(url, token, manifest_dir, obj[p])
+                manifest_id = p
                 print "manifest of job: ",p,"\n\n"
                 print json_file
                 z += 1
@@ -174,18 +179,21 @@ def main():
                 # run unbiased execution
                 p = random.randrange(0,10)
                 print "manifest:{} job_id:{}".format(p,i)
+                manifest_id = p
                 json_file = get_object(url,token, manifest_dir, obj[p])
 
 
 
             elif x<= popularity_factor:
                 json_file = get_object(url, token, manifest_dir, obj[0])
+                manifest_id = 0
             else:
                 json_file = get_object(url, token, manifest_dir, obj[1])
+                manifest_id = 1
 
             #execute the job
             # create a thread and execute the job
-            t_worker = threading.Thread(target=worker, args=( url, token, json_file, i))
+            t_worker = threading.Thread(target=worker, args=( url, token, json_file, i, manifest_id))
             t_worker.start()
             thread_list.append(t_worker)
             #
