@@ -12,13 +12,13 @@ import threading
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
-def worker(url, token, json_file, job_id, manifest_id=0):
+def worker(url, token, json_file, job_id, manifest_id=0, start_time):
     global resp_list
     #logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
         #print resp
-        print_report(resp, job_id, manifest_id)
+        print_report(resp, job_id, manifest_id, start_time)
         #json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
@@ -94,7 +94,7 @@ def print_resp(resp,job_no):
      #   i += 1
 
 
-def print_report(resp, job_no='',manifest_id=0):
+def print_report(resp, job_no='',manifest_id=0, start_time):
     #x-nexe-system
     #x-nexe-error
     #x-nexe-cdr-line
@@ -102,7 +102,7 @@ def print_report(resp, job_no='',manifest_id=0):
     #print resp.__dict__
     #print("-------Job:",job_no,"---------")
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
-    print ("{}, {}, {}").format(job_no, manifest_id, totalExecutionTime)
+    print ("{}, {}, {}, {}").format(start_time, job_no, manifest_id, totalExecutionTime)
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
@@ -193,7 +193,8 @@ def main():
 
             #execute the job
             # create a thread and execute the job
-            t_worker = threading.Thread(target=worker, args=( url, token, json_file, i, manifest_id))
+            start_time = time.ctime()
+            t_worker = threading.Thread(target=worker, args=( url, token, json_file, i, manifest_id, start_time))
             t_worker.start()
             thread_list.append(t_worker)
             #
