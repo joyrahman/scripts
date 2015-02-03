@@ -173,7 +173,7 @@ def main():
             elif popularity_factor == -1:
                 # run unbiased execution
                 p = random.randrange(0,10)
-                print "manifest:{}".format(p)
+                print "manifest:{} job_id:{}".format(p,i)
                 json_file = get_object(url,token, manifest_dir, obj[p])
 
 
