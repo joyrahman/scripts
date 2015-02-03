@@ -17,7 +17,9 @@ def worker(url, token, json_file, job_id):
     #logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
+        print resp
         print_report(resp, job_id)
+        json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
     except Exception as Inst:
@@ -98,7 +100,7 @@ def print_report(resp, job_no=''):
     #x-nexe-cdr-line
     #x-nexe-status
     #print resp.__dict__
-    print("###",job_no,"###")
+    print("-------Job:",job_no,"---------")
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
@@ -144,12 +146,19 @@ def main():
         interval = int(sys.argv[1])
         no_of_sessions = int(sys.argv[2])
         popularity_factor = int(sys.argv[3])
-
+        z = 0
         for i in range(0, no_of_sessions):
 
             # pick the random number and match agains popularity factor
             x =  random.randrange(0,99)
-            if x<= popularity_factor:
+            if popularity_factor == 50:
+                p = z%2
+                json_file = get_object(url, token, manifest_dir, obj[p])
+                print "manifest of job: ",p,"\n\n"
+                print json_file
+                z += 1
+
+            elif x<= popularity_factor:
                 json_file = get_object(url, token, manifest_dir, obj[0])
             else:
                 json_file = get_object(url, token, manifest_dir, obj[1])
