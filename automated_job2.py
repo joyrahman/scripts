@@ -166,7 +166,7 @@ def main():
         for i in range(0, no_of_sessions):
 
             # pick the random number and match agains popularity factor
-            x =  random.randrange(0,99)
+            x =  random.randrange(0,99,2)
             print x
             if popularity_factor == 50:
                 p = z%2
