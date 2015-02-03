@@ -15,7 +15,7 @@ resp_list = []
 def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
     #logging.debug("running the job")
-    start_time = time.ctime()
+    start_time = time.time()
     try:
         resp = zebra_execute(url,token,json_file)
         #print resp
@@ -102,8 +102,11 @@ def print_report(resp, start_time, job_no='',manifest_id=0, ):
     #x-nexe-status
     #print resp.__dict__
     #print("-------Job:",job_no,"---------")
+
+    end_time = time.time()
+
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
-    print ("{}, {}, {}, {}").format(start_time, job_no, manifest_id, totalExecutionTime)
+    print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, totalExecutionTime)
     sessions_id     = resp.headers['x-nexe-system']
     sessions_error  = " "
     if 'x-nexe-error' in resp.headers:
