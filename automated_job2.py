@@ -186,13 +186,13 @@ def main():
 
 
             elif x<= popularity_factor:
-                p = random.randrange(0,2)
+                p = random.randrange(0,2,1)
                 json_file = get_object(url, token, manifest_dir, obj[p])
-                manifest_id = 0
+                manifest_id = p
             else:
-                p = random.randrange(3,10)
+                p = random.randrange(3,10,1)
                 json_file = get_object(url, token, manifest_dir, obj[p])
-                manifest_id = 1
+                manifest_id = p
 
             #execute the job
             # create a thread and execute the job
