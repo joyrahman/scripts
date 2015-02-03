@@ -17,7 +17,7 @@ def worker(url, token, json_file, job_id, manifest_id=0):
     #logging.debug("running the job")
     try:
         resp = zebra_execute(url,token,json_file)
-        print resp
+        #print resp
         print_report(resp, job_id, manifest_id)
         #json_print(resp, job_id)
         #resp_list.append(resp)
