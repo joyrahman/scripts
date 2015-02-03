@@ -167,7 +167,7 @@ def main():
 
             # pick the random number and match agains popularity factor
             x =  random.randrange(0,99)
-
+            print x
             if popularity_factor == 50:
                 p = z%2
                 json_file = get_object(url, token, manifest_dir, obj[p])
