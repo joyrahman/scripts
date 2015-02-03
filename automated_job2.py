@@ -19,7 +19,7 @@ def worker(url, token, json_file, job_id):
         resp = zebra_execute(url,token,json_file)
         print resp
         print_report(resp, job_id)
-        json_print(resp, job_id)
+        #json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
     except Exception as Inst:
@@ -173,7 +173,9 @@ def main():
             elif popularity_factor == -1:
                 # run unbiased execution
                 p = random.randrange(0,10)
+                print "manifest:{}".format(p)
                 json_file = get_object(url,token, manifest_dir, obj[p])
+
 
 
             elif x<= popularity_factor:
