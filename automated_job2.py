@@ -134,7 +134,18 @@ def main():
     max_duration = 120
     ## user defined params
 
-    obj = [ "wordcount_20.json" , "wordcount_80.json" ]
+    #obj = [ "wordcount_20.json" , "wordcount_80.json" ]
+    obj = [ "wordcount_dir1.json" , \
+            "wordcount_dir2.json" , \
+            "wordcount_dir3.json" , \
+            "wordcount_dir4.json" , \
+            "wordcount_dir5.json" , \
+            "wordcount_dir6.json" , \
+            "wordcount_dir7.json" , \
+            "wordcount_dir8.json" , \
+            "wordcount_dir9.json" , \
+            "wordcount_dir10.json" ]
+
     popularity_factor = 80
     #resp_list = []
     global resp_list
@@ -151,12 +162,19 @@ def main():
 
             # pick the random number and match agains popularity factor
             x =  random.randrange(0,99)
+
             if popularity_factor == 50:
                 p = z%2
                 json_file = get_object(url, token, manifest_dir, obj[p])
                 print "manifest of job: ",p,"\n\n"
                 print json_file
                 z += 1
+
+            elif popularity_factor == -1:
+                # run unbiased execution
+                p = random.randrange(0,10)
+                json_file = get_object(url,token, manifest_dir, obj[p])
+
 
             elif x<= popularity_factor:
                 json_file = get_object(url, token, manifest_dir, obj[0])
