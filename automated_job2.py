@@ -28,7 +28,8 @@ def write_to_db(data):
          cur = con.cursor()
          cur.execute("DROP TABLE IF EXISTS CDR")
          cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
-         cur.executemany("INSERT INTO CDR VALUES(?,?,?,?,?)",data)
+         for item in data:
+            cur.executemany("INSERT INTO CDR VALUES(?,?,?,?,?)",item)
 
 
 
@@ -38,7 +39,7 @@ def write_to_db(data):
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
-record = ()
+record = []
 
 def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
@@ -268,15 +269,28 @@ def main():
 
     ### BUSY WAIT UNTIL ALL THREADS ARE DEAD ###
     signal = True
-    while(signal):
+    signal_flag = []
+
+    while signal:
+        i = 0
         for t in thread_list:
             if t.isAlive():
-                signal = False
+                signal_flag[i] = 1
             else :
-                signal = True
+                signal_flag[i] = 0
+            i += 1
 
+        sum = 0
+        for item in signal_flag:
+            sum += item
+
+        if sum ==0:
+            signal = False
+        else:
             time.sleep(5)
             print ("!",)
+
+
     global record
     write_to_db(record)
 
