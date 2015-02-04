@@ -299,19 +299,13 @@ def main():
             signal = False
         else:
             time.sleep(5)
-            print ("!",)
 
 
     global record
+    ## write the data to db and csv
     write_to_db(record)
     write_to_csv(record)
 
-    # jobcounter = 1
-    # for item in resp_list:
-    #         #     #print_resp (item,jobcounter)
-    #         #     #json_print(item, jobcounter)
-    #     print_report(item, jobcounter)
-    #     jobcounter += 1
 
 if __name__ == '__main__':
     main()
