@@ -22,8 +22,8 @@ def write_to_csv(csv_data):
     time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
     file_extension = "csv"
-
     output_file_name = "exec_report_{}.{}".format(current_time, file_extension)
+    print("[>>] writing to csv file: {}".format(output_file_name))
     target_path = os.path.join(directory_name,output_file_name)
     with open(target_path, 'w') as fp:
         a = csv.writer(fp, delimiter=',')
@@ -31,7 +31,7 @@ def write_to_csv(csv_data):
 
 def write_to_db(data):
      con = lite.connect('test.db')
-     print("writing to db")
+     print("[>>] writing to db")
      with con:
          cur = con.cursor()
          #cur.execute("DROP TABLE IF EXISTS CDR")
