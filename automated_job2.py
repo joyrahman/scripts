@@ -14,10 +14,12 @@ import csv
 
 
 con = None
+resp_list = []
+record = []
+csv_data = []
 
-
-def write_to_csv(csv_data):
-
+def write_to_csv():
+    global csv_data
     directory_name = "/home/cloudsys/report"
     time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
@@ -35,7 +37,8 @@ def write_to_db(data):
     current_time = time.strftime(time_format)
     file_extension = "db"
     output_file_name = "report_{}.{}".format(current_time, file_extension)
-    con = lite.connect(output_file_name)
+    target_path = os.path.join(directory_name,output_file_name)
+    con = lite.connect(target_path)
     print("[>>] writing to db")
     with con:
          cur = con.cursor()
@@ -51,8 +54,6 @@ def write_to_db(data):
 
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
-resp_list = []
-record = []
 
 def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
@@ -142,10 +143,12 @@ def print_resp(resp,job_no):
 
 def populate_record(resp, start_time, end_time, job_no='',manifest_id=0):
     global record
+    global csv_data
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
     print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, float(totalExecutionTime))
     t = (start_time,end_time,job_no,manifest_id,totalExecutionTime)
     record.append(t)
+    csv_data.append([start_time,end_time,job_no,manifest_id,totalExecutionTime])
 
 
 
@@ -307,9 +310,10 @@ def main():
 
 
     global record
+    global csv_data
     ## write the data to db and csv
     write_to_db(record)
-    write_to_csv(record)
+    write_to_csv(csv_data)
 
 
 if __name__ == '__main__':
