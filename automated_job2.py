@@ -49,7 +49,8 @@ def worker(url, token, json_file, job_id, manifest_id=0):
         resp = zebra_execute(url,token,json_file)
         #print resp
         #print_report(resp,start_time, job_id, manifest_id )
-        populate_record(resp,start_time,job_id,manifest_id)
+        end_time = time.time()
+        populate_record(resp,start_time,end_time,job_id,manifest_id)
         #json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
@@ -124,11 +125,10 @@ def print_resp(resp,job_no):
             #print "session_time: ",item
      #   i += 1
 
-def populate_record(resp, start_time, job_no='',manifest_id=0):
+def populate_record(resp, start_time, end_time, job_no='',manifest_id=0):
     global record
-    end_time = time.time()
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
-    print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, totalExecutionTime)
+    print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, float(totalExecutionTime))
     t = (start_time,end_time,job_no,manifest_id,totalExecutionTime)
     record.append(t)
 
