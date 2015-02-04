@@ -12,13 +12,6 @@ import sqlite3 as lite
 
 con = None
 
-def connect_to_db(db_name = "test.db"):
-    global con
-    con = lite.connect('test.db')
-    with con:
-        cur = con.cursor()
-        cur.execute("DROP TABLE IF EXISTS CDR")
-        cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
 
 
 def write_to_db(data):
@@ -26,7 +19,7 @@ def write_to_db(data):
      print("writing to db")
      with con:
          cur = con.cursor()
-         cur.execute("DROP TABLE IF EXISTS CDR")
+         #cur.execute("DROP TABLE IF EXISTS CDR")
          cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
          for item in data:
             cur.execute("INSERT INTO CDR VALUES(?,?,?,?,?)",item)
