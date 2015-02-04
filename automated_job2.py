@@ -130,7 +130,7 @@ def populate_record(resp, start_time, job_no='',manifest_id=0):
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
     print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, totalExecutionTime)
     t = (start_time,end_time,job_no,manifest_id,totalExecutionTime)
-    record.insert(t)
+    record.append(t)
 
 
 
