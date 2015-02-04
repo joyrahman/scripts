@@ -9,10 +9,24 @@ import random
 import time
 import threading
 import sqlite3 as lite
+import csv
+
 
 con = None
 
 
+def write_to_csv(csv_data):
+
+    directory_name = "/home/cloudsys/report"
+    time_format = '%Y%m%d_%H%M%S'
+    current_time = time.strftime(time_format)
+    file_extension = "csv"
+
+    output_file_name = "exec_report_{}.{}".format(current_time, file_extension)
+    target_path = os.path.join(directory_name,output_file_name)
+    with open(target_path, 'w') as fp:
+        a = csv.writer(fp, delimiter=',')
+        a.writerows(csv_data)
 
 def write_to_db(data):
      con = lite.connect('test.db')
@@ -287,6 +301,7 @@ def main():
 
     global record
     write_to_db(record)
+    write_to_csv(record)
 
     # jobcounter = 1
     # for item in resp_list:
