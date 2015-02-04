@@ -30,12 +30,17 @@ def write_to_csv(csv_data):
         a.writerows(csv_data)
 
 def write_to_db(data):
-     con = lite.connect('test.db')
-     print("[>>] writing to db")
-     with con:
+    directory_name = "/home/cloudsys/report"
+    time_format = '%Y-%m-%d %H:%M:%S'
+    current_time = time.strftime(time_format)
+    file_extension = "db"
+    output_file_name = "report_{}.{}".format(current_time, file_extension)
+    con = lite.connect(output_file_name)
+    print("[>>] writing to db")
+    with con:
          cur = con.cursor()
-         #cur.execute("DROP TABLE IF EXISTS CDR")
-         #cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
+         cur.execute("DROP TABLE IF EXISTS CDR")
+         cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
          for item in data:
             cur.execute("INSERT INTO CDR VALUES(?,?,?,?,?)",item)
 
