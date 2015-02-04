@@ -20,7 +20,7 @@ def write_to_db(data):
      with con:
          cur = con.cursor()
          #cur.execute("DROP TABLE IF EXISTS CDR")
-         cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
+         #cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
          for item in data:
             cur.execute("INSERT INTO CDR VALUES(?,?,?,?,?)",item)
 
