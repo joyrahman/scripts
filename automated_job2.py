@@ -7,6 +7,7 @@ import sys
 import os
 import random
 import time
+import datetime
 import threading
 import sqlite3 as lite
 import csv
@@ -18,7 +19,7 @@ con = None
 def write_to_csv(csv_data):
 
     directory_name = "/home/cloudsys/report"
-    time_format = '%Y%m%d_%H%M%S'
+    time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
     file_extension = "csv"
 
@@ -51,12 +52,14 @@ record = []
 def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
     #logging.debug("running the job")
-    start_time = time.time()
+    time_format = '%Y-%m-%d %H:%M:%S'
+    start_time = time.strftime(time_format)
+
     try:
         resp = zebra_execute(url,token,json_file)
         #print resp
         #print_report(resp,start_time, job_id, manifest_id )
-        end_time = time.time()
+        end_time = time.strftime(time_format)
         populate_record(resp,start_time,end_time,job_id,manifest_id)
         #json_print(resp, job_id)
         #resp_list.append(resp)
