@@ -23,6 +23,7 @@ def connect_to_db(db_name = "test.db"):
 
 def write_to_db(data):
      con = lite.connect('test.db')
+     print("writing to db")
      with con:
          cur = con.cursor()
          cur.execute("DROP TABLE IF EXISTS CDR")
