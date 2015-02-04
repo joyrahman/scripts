@@ -16,10 +16,9 @@ import csv
 con = None
 resp_list = []
 record = []
-csv_data = []
+#csv_data = []
 
-def write_to_csv():
-    global csv_data
+def write_to_csv(csv_data):
     directory_name = "/home/cloudsys/report"
     time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
@@ -148,7 +147,7 @@ def populate_record(resp, start_time, end_time, job_no='',manifest_id=0):
     print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, float(totalExecutionTime))
     t = (start_time,end_time,job_no,manifest_id,totalExecutionTime)
     record.append(t)
-    csv_data.append([start_time,end_time,job_no,manifest_id,totalExecutionTime])
+    #csv_data.append([start_time,end_time,job_no,manifest_id,totalExecutionTime])
 
 
 
@@ -310,10 +309,10 @@ def main():
 
 
     global record
-    global csv_data
+    #global csv_data
     ## write the data to db and csv
     write_to_db(record)
-    write_to_csv(csv_data)
+    write_to_csv(record)
 
 
 if __name__ == '__main__':
