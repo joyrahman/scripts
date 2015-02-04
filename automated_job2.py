@@ -8,11 +8,37 @@ import os
 import random
 import time
 import threading
+import sqlite3 as lite
+
+con = None
+
+def connect_to_db(db_name = "test.db"):
+    global con
+    con = lite.connect('test.db')
+    with con:
+        cur = con.cursor()
+        cur.execute("DROP TABLE IF EXISTS CDR")
+        cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
+
+
+def write_to_db(data):
+     con = lite.connect('test.db')
+     with con:
+         cur = con.cursor()
+         cur.execute("DROP TABLE IF EXISTS CDR")
+         cur.execute("CREATE TABLE CDR(start_time DATE, end_time DATE, job_id INT, container_id INT, execution_time DOUBLE )")
+         cur.executemany("INSERT INTO CDR VALUES(?,?,?,?,?)",data)
+
+
+
+
 #import logging
 
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
 resp_list = []
+record = ()
+
 def worker(url, token, json_file, job_id, manifest_id=0):
     global resp_list
     #logging.debug("running the job")
@@ -20,7 +46,8 @@ def worker(url, token, json_file, job_id, manifest_id=0):
     try:
         resp = zebra_execute(url,token,json_file)
         #print resp
-        print_report(resp,start_time, job_id, manifest_id )
+        #print_report(resp,start_time, job_id, manifest_id )
+        populate_record(resp,start_time,job_id,manifest_id)
         #json_print(resp, job_id)
         #resp_list.append(resp)
         #print_report(resp)
@@ -95,8 +122,16 @@ def print_resp(resp,job_no):
             #print "session_time: ",item
      #   i += 1
 
+def populate_record(resp, start_time, job_no='',manifest_id=0):
+    global record
+    end_time = time.time()
+    totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
+    print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, totalExecutionTime)
+    record.insert(start_time,end_time,job_no,manifest_id,totalExecutionTime)
 
-def print_report(resp, start_time, job_no='',manifest_id=0, ):
+
+
+def print_report(resp, start_time, job_no='',manifest_id=0 ):
     #x-nexe-system
     #x-nexe-error
     #x-nexe-cdr-line
@@ -221,16 +256,28 @@ def main():
         usage()
 
 
+
+
+
     # for t in thread_list:
     #     t.join()
     # signal = True
     #
     # while(signal):
-    #     for t in thread_list:
-    #         if not t.isAlive():
-    #             signal = False
-    #
-    #     time.sleep(20)
+
+    ### BUSY WAIT UNTIL ALL THREADS ARE DEAD ###
+    signal = True
+    while(signal):
+        for t in thread_list:
+            if t.isAlive():
+                signal = False
+            else :
+                signal = True
+
+            time.sleep(5)
+            print ("!",)
+    global record
+    write_to_db(record)
 
     # jobcounter = 1
     # for item in resp_list:
