@@ -129,7 +129,8 @@ def populate_record(resp, start_time, job_no='',manifest_id=0):
     end_time = time.time()
     totalExecutionTime, nodesBillingInfo = resp.headers['x-nexe-cdr-line'].split(',', 1)
     print ("{}, {}, {}, {}, {}").format(start_time, end_time, job_no, manifest_id, totalExecutionTime)
-    record.insert(start_time,end_time,job_no,manifest_id,totalExecutionTime)
+    t = tuple(start_time,end_time,job_no,manifest_id,totalExecutionTime)
+    record.insert(t)
 
 
 
@@ -269,7 +270,7 @@ def main():
 
     ### BUSY WAIT UNTIL ALL THREADS ARE DEAD ###
     signal = True
-    signal_flag = []
+    signal_flag = [0] * len(thread_list)
 
     while signal:
         i = 0
