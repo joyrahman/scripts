@@ -11,6 +11,7 @@ def main(file_name):
         print "opening {}".format(file_name)
         reader = csv.reader(f, dialect=csv.excel_tab)
         data = list(reader)
+        print data
 
     for item in data:
         start_time = item[0]
