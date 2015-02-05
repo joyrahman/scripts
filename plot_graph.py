@@ -9,7 +9,7 @@ def main(file_name):
 
     with open(file_name, 'rb') as f:
         print "opening {}".format(file_name)
-        reader = csv.reader(f)
+        reader = csv.reader(f, dialect=csv.excel_tab)
         data = list(reader)
 
     for item in data:
