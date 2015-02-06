@@ -149,8 +149,8 @@ def main():
     global resp_list
     manifest_dir = "manifest"
     k = 0
-    for i in obj:
-        json_file = get_object(url, token, manifest_dir, obj[i])
+    for file_name in obj:
+        json_file = get_object(url, token, manifest_dir, file_name)
         execute_job(url, token, json_file, k, k)
         k += 1
         time.sleep(interval)
