@@ -14,17 +14,19 @@ python swift_download.py [source_container] [dest_container]
 
 def set_logging():
     # logging configuration
+    #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
+
     logger = logging.getLogger('swift downloader')
     logger.setLevel(logging.DEBUG)
-
+    
 
     # create file handler which logs even debug messages
-    fh = logging.FileHandler('time.log')
+    fh = logging.FileHandler('swift_downloader_{}_{}.log'.format(source_container,dest_container))
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
     ch = logging.StreamHandler()
-    ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
 
     # create formatter and add it to the handlers
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -46,12 +48,12 @@ def main(src_container, dst_container ):
 
 
     # create file handler which logs even debug messages
-    fh = logging.FileHandler('time.log')
+    fh = logging.FileHandler('swift_downloader.log')
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
     ch = logging.StreamHandler()
-    ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
 
     # create formatter and add it to the handlers
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
