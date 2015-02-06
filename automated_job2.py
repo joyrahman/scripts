@@ -242,7 +242,10 @@ def main():
                 manifest_id = p
                 json_file = get_object(url,token, manifest_dir, obj[p])
 
-
+            elif popularity_factor == -2:
+                # run specific job for a single fine
+                json_file = get_object(url, token, manifest_dir, "wordcount_file1.json")
+                manifest_id = 11
 
             elif x<= popularity_factor:
                 p = random.randrange(0,2,1)
