@@ -14,17 +14,19 @@ python swift_download.py [source_container] [dest_container]
 
 def set_logging():
     # logging configuration
+    #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
+
     logger = logging.getLogger('swift downloader')
     logger.setLevel(logging.DEBUG)
-
+    
 
     # create file handler which logs even debug messages
-    fh = logging.FileHandler('time.log')
+    fh = logging.FileHandler('swift_downloader_{}_{}.log'.format(source_container,dest_container))
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
     ch = logging.StreamHandler()
-    ch.setLevel(logging.ERROR)
+    ch.setLevel(logging.DEBUG)
 
     # create formatter and add it to the handlers
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -40,7 +42,30 @@ def set_logging():
 
 def main(src_container, dst_container ):
 
-    logger = set_logging()
+    # logging configuration
+    logger = logging.getLogger('swift downloader')
+    logger.setLevel(logging.DEBUG)
+
+
+    # create file handler which logs even debug messages
+    fh = logging.FileHandler('swift_downloader.log')
+    fh.setLevel(logging.DEBUG)
+
+    # create console handler with a higher log level
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+
+    # create formatter and add it to the handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh.setFormatter(formatter)
+    ch.setFormatter(formatter)
+
+    # add the handlers to the logger
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
+
+
     logger.info('swift download started')
     container_url= os.environ['OS_STORAGE_URL'] + "/" + src_container
 
@@ -67,11 +92,6 @@ def main(src_container, dst_container ):
 
 
     for item in listing:
-<<<<<<< HEAD
-        #print "{}".format(i)+ ":" +item
-=======
-        print "{}".format(i)+ ":" +item
->>>>>>> 800021ad7c6206a0efd4a2fc097214dcddd36dc8
         i += 1
         request_string = urllib2.Request(container_url + "/"+item, headers=header_parameters)
         remote_fp =  urllib2.urlopen(request_string)
@@ -91,8 +111,4 @@ if __name__ == '__main__':
         dst_container = sys.argv[2]
         main(src_container, dst_container)
     else:
-<<<<<<< HEAD
         usage()
-=======
-        usage()
->>>>>>> 800021ad7c6206a0efd4a2fc097214dcddd36dc8
