@@ -67,7 +67,7 @@ def main(src_container, dst_container ):
 
 
     for item in listing:
-        print "{}".format(i)+ ":" +item
+        #print "{}".format(i)+ ":" +item
         i += 1
         request_string = urllib2.Request(container_url + "/"+item, headers=header_parameters)
         remote_fp =  urllib2.urlopen(request_string)
