@@ -67,7 +67,11 @@ def main(src_container, dst_container ):
 
 
     for item in listing:
+<<<<<<< HEAD
         #print "{}".format(i)+ ":" +item
+=======
+        print "{}".format(i)+ ":" +item
+>>>>>>> 800021ad7c6206a0efd4a2fc097214dcddd36dc8
         i += 1
         request_string = urllib2.Request(container_url + "/"+item, headers=header_parameters)
         remote_fp =  urllib2.urlopen(request_string)
@@ -87,4 +91,8 @@ if __name__ == '__main__':
         dst_container = sys.argv[2]
         main(src_container, dst_container)
     else:
+<<<<<<< HEAD
         usage()
+=======
+        usage()
+>>>>>>> 800021ad7c6206a0efd4a2fc097214dcddd36dc8
