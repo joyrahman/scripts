@@ -1,0 +1,70 @@
+[
+    {
+        "name": "mapper",
+        "exec": {
+            "path": "file://python:python",
+            "env": {
+                "modulo_base": "1"
+             }
+        },
+        "file_list": [
+            {
+                "device": "stdin",
+                "path": "swift://~/manifest/mapper.py"
+            },
+            {
+                "device": "stdout",
+                "path": "swift://~/manifest/mapper_output*.txt",
+                "content_type": "text/plain"
+            }        
+            ,
+            {
+                "device": "input",
+                "path": "swift://~/dir1/wiki*"
+            },
+            {
+                "device": "stderr",
+                "path": "swift://~/manifest/mapper*.err",
+                "content_type": "text/plain"
+            },
+            {
+                "device": "python"
+            }
+        ],
+        "connect": [
+            "reducer"
+        ]
+    },
+    {
+        "name": "reducer",
+        "exec": {
+            "path": "file://python:python",
+		    "env" : {
+			    "SOURCE_NAME": "src",
+			    "DEST_NAME": "dst",
+			    "MAN_NAME": "man",
+                "modulo_base":"1"
+		        }
+        },
+		"count":1,
+        "file_list": [
+            {
+                "device": "stdin",
+                "path": "swift://~/manifest/reducer.py"
+            },
+            {
+                "device": "stdout",
+                "path": "swift://~/manifest/reducer_output*.txt",
+                "content_type": "text/plain"
+            },
+			{
+                "device": "python"
+            },
+            {
+                "device": "stderr",
+                "path": "swift://~/manifest/reducer*.err",
+                "content_type": "text/plain"
+            }
+        ]
+    }
+]
