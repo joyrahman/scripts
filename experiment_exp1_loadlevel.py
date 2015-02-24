@@ -24,9 +24,9 @@ def write_to_csv(csv_data, output_file_name):
     directory_name = "/home/cloudsys/report"
     time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
-    file_extension = "csv"
+    file_extension = ".csv"
     if not output_file_name:
-        output_file_name = "exec_report_{}.{}".format(current_time, file_extension)
+        output_file_name = "exec_report_{}".format(current_time)
     print("[>>] writing to csv file: {}".format(output_file_name))
     target_path = os.path.join(directory_name, output_file_name+file_extension)
     with open(target_path, 'w') as fp:
@@ -37,9 +37,9 @@ def write_to_db(data, output_file_name):
     directory_name = "/home/cloudsys/report"
     time_format = '%Y-%m-%d %H:%M:%S'
     current_time = time.strftime(time_format)
-    file_extension = "db"
+    file_extension = ".db"
     if not output_file_name:
-        output_file_name = "report_{}.{}".format(current_time, file_extension)
+        output_file_name = "report_{}".format(current_time)
     target_path = os.path.join(directory_name,output_file_name+file_extension)
     con = lite.connect(target_path)
     print("[>>] writing to db")
