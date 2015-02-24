@@ -320,7 +320,7 @@ def main():
     global record
     #global csv_data
     ## write the data to db and csv
-    write_to_db(record)
+    write_to_db(record, output_file_name)
     write_to_csv(record,output_file_name)
 
 
