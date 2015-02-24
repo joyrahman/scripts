@@ -28,7 +28,8 @@ def write_to_csv(csv_data, output_file_name):
     if not output_file_name:
         output_file_name = "exec_report_{}".format(current_time)
     print("[>>] writing to csv file: {}".format(output_file_name))
-    target_path = os.path.join(directory_name, output_file_name+file_extension)
+    output_file_name = output_file_name + file_extension
+    target_path = os.path.join(directory_name, output_file_name)
     with open(target_path, 'w') as fp:
         a = csv.writer(fp, delimiter=',')
         a.writerows(csv_data)
