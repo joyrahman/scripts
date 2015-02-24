@@ -28,7 +28,7 @@ def write_to_csv(csv_data, output_file_name):
     if not output_file_name:
         output_file_name = "exec_report_{}.{}".format(current_time, file_extension)
     print("[>>] writing to csv file: {}".format(output_file_name))
-    target_path = os.path.join(directory_name, output_file_name)
+    target_path = os.path.join(directory_name, output_file_name+file_extension)
     with open(target_path, 'w') as fp:
         a = csv.writer(fp, delimiter=',')
         a.writerows(csv_data)
@@ -40,7 +40,7 @@ def write_to_db(data, output_file_name):
     file_extension = "db"
     if not output_file_name:
         output_file_name = "report_{}.{}".format(current_time, file_extension)
-    target_path = os.path.join(directory_name,output_file_name)
+    target_path = os.path.join(directory_name,output_file_name+file_extension)
     con = lite.connect(target_path)
     print("[>>] writing to db")
     with con:
@@ -225,7 +225,7 @@ def main():
         interval = int(sys.argv[1])
         no_of_sessions = int(sys.argv[2])
         popularity_factor = int(sys.argv[3])
-        output_file_name = int(sys.argv[4])
+        output_file_name = sys.argv[4]
         z = 0
         manifest_id = -1
         for i in range(0, no_of_sessions):
