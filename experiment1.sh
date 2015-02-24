@@ -1,7 +1,20 @@
-# varaible is interval 
-python experiment_exp1_loadlevel.py 1 500 -1 test1.csv
-python experiment_exp1_loadlevel.py 2 500 -1 test1.csv
-python experiment_exp1_loadlevel.py 3 500 -1 test1.csv
-python experiment_exp1_loadlevel.py 4 500 -1 test1.csv
-python experiment_exp1_loadlevel.py 5 500 -1 test1.csv
+#! /bin/bash
+
+output_file_name="var_interval"
+popularity=-1
+interval=1
+executable="experiment_exp1_loadlevel.py"
+no_of_sessions=500
+
+for i in {1..$interval}
+do
+    echo "running iteration:$i"
+    python $executable $interval $no_of_sessions $popularity "$output_file_name-$i.csv"
+done
+
+#python experiment_exp1_loadlevel.py 1 500 -1 test1.csv
+#python experiment_exp1_loadlevel.py 2 500 -1 test1.csv
+#python experiment_exp1_loadlevel.py 3 500 -1 test1.csv
+#python experiment_exp1_loadlevel.py 4 500 -1 test1.csv
+#python experiment_exp1_loadlevel.py 5 500 -1 test1.csv
 
