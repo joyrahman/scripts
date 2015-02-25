@@ -23,8 +23,8 @@ def main():
     for i in range (0,dest_file_count):
         dest_file_name = dest_file_name_prefix + "_{}".format(i)+dest_file_format
         with open(source_file, 'rb') as src, open(dest_file_name,'wb') as trg:
-            file_buffer = io.BufferedReader(src)
-            data = file_buffer.read(dest_file_size)
+            #file_buffer = io.BufferedReader(src)
+            data = src.read(dest_file_size)
             trg.write(data)
 
 if __name__ == "__main__":
