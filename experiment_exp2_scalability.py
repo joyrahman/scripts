@@ -200,7 +200,7 @@ def main():
 
     json_file = ''
     url, token = get_url_and_token()
-    max_duration = 120
+    max_duration = 240
 
     global resp_list
 
@@ -221,6 +221,7 @@ def main():
         job_id = 1
         populate_record(resp,start_time,end_time)
         #resp_list.append(resp)
+        time.sleep(max_duration)
         global record
         write_to_csv(record,output_file_name)
 
