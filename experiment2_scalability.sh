@@ -6,12 +6,13 @@ interval=20
 end_limit=5
 executable="experiment_exp2_scalability.py"
 no_of_sessions=1
+manifest_dir="manifest"
 
 for i in 1 5 10 35 70 140 280 560
 do
-
-    		echo "running iteration:$i"
-    		python $executable $j $no_of_sessions $popularity $manifest_file_name "$output_file_name-$i"
+            manifest_file_name="wordcount_dir${i}mb.json"
+    		echo "running iteration:$manifest_file_name"
+    		python $executable $interval $no_of_sessions $popularity $manifest_dir $manifest_file_name "$output_file_name-$i"
 
 done
 
