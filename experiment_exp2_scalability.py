@@ -220,7 +220,7 @@ def main():
         end_time = time.strftime(time_format)
         job_id = 1
         populate_record(resp,start_time,end_time)
-        resp_list.append(resp)
+        #resp_list.append(resp)
         global record
         write_to_csv(record,output_file_name)
 
