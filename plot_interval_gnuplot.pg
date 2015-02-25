@@ -1,0 +1,44 @@
+#!/usr/local/bin/gnuplot
+
+reset
+set terminal png
+set term postscript eps color blacktext
+set output "test1.eps"
+set style fill solid 0.5
+
+
+#set xdata time
+#set timefmt "%d/%m/%Y %H:%M:%S"
+#set format x "%H:%M"
+set xlabel "job id"
+set xrange [1:200]
+
+
+set ylabel "execution time"
+set yrange [0:200]
+
+set title "Impact of popularity on Highload Job Execution Time"
+#set key reverse Left outside
+set grid
+
+set style data lines
+
+#plot "var_popularity-1_pop100.dat" using 1:2 title "100%", \
+"var_popularity-1_pop90.dat" using 1:2 title "90%", \
+"var_popularity-1_pop80.dat" using 1:2 title "80%", \
+"var_popularity-1_pop70.dat" using 1:2 title "70%", \
+"var_popularity-1_pop60.dat" using 1:2 title "60%", \
+"var_popularity-1_pop50.dat" using 1:2 title "50%", \
+"var_popularity-1_pop40.dat" using 1:2 title "40%", \
+"var_popularity-1_pop30.dat" using 1:2 title "30%", \
+"var_popularity-1_pop20.dat" using 1:2 title "20%", \
+"var_popularity-1_pop10.dat" using 1:2 title "10%", \
+"var_popularity-1_pop0.dat" using 1:2 title "0%"
+#
+
+plot "var_popularity-1_pop100_s.dat" using 0:2 title "100%" with boxes, \
+"var_popularity-1_pop80_s.dat" using 0:2 title "80%" with boxes, \
+"var_popularity-1_pop60_s.dat" using 0:2 title "60%" with boxes, \
+"var_popularity-1_pop40_s.dat" using 0:2 title "40%" with boxes, \
+"var_popularity-1_pop20_s.dat" using 0:2 title "20%" with boxes, \
+"var_popularity-1_pop0_s.dat" using 0:2 title "0%" with boxes
