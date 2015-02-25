@@ -3,11 +3,12 @@
 output_file_name="var_interval"
 popularity=-1
 interval=0
-end_limit=5
+end_limit=30
 executable="experiment_exp1_loadlevel.py"
-no_of_sessions=5
+no_of_sessions=500
 
-for i in {1..$end_limit}
+#for (( i=1; i<=$interval; i++))
+for i in {1..30}
 do
     echo "running iteration:$i"
     python $executable $i $no_of_sessions $popularity "$output_file_name-$i.csv"
