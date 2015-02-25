@@ -221,7 +221,7 @@ def main():
         job_id = 1
         populate_record(resp,start_time,end_time)
         #resp_list.append(resp)
-        time.sleep(max_duration)
+        #time.sleep(max_duration)
         global record
         write_to_csv(record,output_file_name)
 
