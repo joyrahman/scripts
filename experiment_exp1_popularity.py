@@ -232,27 +232,27 @@ def main():
         for i in range(0, no_of_sessions):
 
             # pick the random number and match agains popularity factor
-            x =  random.randrange(0,99,2)
+            x =  random.randrange(0,100,10)
             #print x
-            if popularity_factor == 50:
-                p = z%2
-                json_file = get_object(url, token, manifest_dir, obj[p])
-                manifest_id = p
-                print "manifest of job: ",p,"\n\n"
-                print json_file
-                z += 1
+            # if popularity_factor == 50:
+            #     p = z%2
+            #     json_file = get_object(url, token, manifest_dir, obj[p])
+            #     manifest_id = p
+            #     print "manifest of job: ",p,"\n\n"
+            #     print json_file
+            #     z += 1
 
-            elif popularity_factor == -1:
+            if popularity_factor == -1:
                 # run unbiased execution
                 p = random.randrange(0,10)
                 #print "manifest:{} job_id:{}".format(p,i)
                 manifest_id = p
                 json_file = get_object(url,token, manifest_dir, obj[p])
 
-            elif popularity_factor == -2:
-                # run specific job for a single fine
-                json_file = get_object(url, token, manifest_dir, "wordcount_file1.json")
-                manifest_id = 11
+            # elif popularity_factor == -2:
+            #     # run specific job for a single fine
+            #     json_file = get_object(url, token, manifest_dir, "wordcount_file1.json")
+            #     manifest_id = 11
 
             elif x<= popularity_factor:
                 p = random.randrange(0,2,1)
