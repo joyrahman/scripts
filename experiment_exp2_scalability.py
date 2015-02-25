@@ -205,7 +205,7 @@ def main():
     global resp_list
 
     # usage : python automate_job.py <interval> <no_of_sessions> <popularity_factor> <manifest_dir><output_file>
-    if len(sys.argv) == 6:
+    if len(sys.argv) >= 5:
 
         interval = int(sys.argv[1])
         no_of_sessions = int(sys.argv[2])

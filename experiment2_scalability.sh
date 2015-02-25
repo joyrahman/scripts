@@ -12,7 +12,7 @@ for i in 1 5 10 35 70 140 280 560
 do
             manifest_file_name="wordcount_dir${i}mb.json"
     		echo "running iteration:$manifest_file_name"
-    		python $executable $interval $no_of_sessions $popularity $manifest_dir $manifest_file_name "$output_file_name-$i"
+    		python $executable $interval $no_of_sessions $popularity $manifest_dir $manifest_file_name "${output_file_name}-${i}"
 
 done
 
