@@ -8,10 +8,11 @@ end_limit=5
 executable="experiment_exp1_popularity.py"
 no_of_sessions=1
 
-for i in {0..100..10}
+for i in {0..100}
 do
    echo "running iteration:$i, $j"
    python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
+   ${i} = ${i}+10
 done
 
 #python $executable 1 $no_of_sessions 0 "$output_file_name-1_pop0"
