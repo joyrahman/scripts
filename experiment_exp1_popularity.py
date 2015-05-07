@@ -199,8 +199,10 @@ def main():
 
 
     json_file = ''
-    url, token = get_url_and_token()
-    max_duration = 120
+    #url, token = get_url_and_token()
+    url = os.getenv('OS_STORAGE_URL', None)
+    token = os.getenv('OS_AUTH_TOKEN', None)
+    max_duration = 500
     ## user defined params
 
     #obj = [ "wordcount_20.json" , "wordcount_80.json" ]
