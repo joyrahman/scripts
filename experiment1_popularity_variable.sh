@@ -11,7 +11,7 @@ no_of_sessions=3
 for i in {0..100..10}
 do
    echo "running iteration:$i, $j"
-   python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
+   python $executable $interval $no_of_sessions $i "$output_file_name-1_pop$i"
    #${i} = ${i}+10
 done
 
