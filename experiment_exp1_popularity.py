@@ -199,6 +199,10 @@ def main():
 
 
     json_file = ''
+    #url, token = get_url_and_token()
+    url = os.getenv('OS_STORAGE_URL', None)
+    token = os.getenv('OS_AUTH_TOKEN', None)
+    max_duration = 500
     # url, token = get_url_and_token()
     url = os.getenv('OS_STORAGE_URL', None)
     token = os.getenv('OS_AUTH_TOKEN', None)
@@ -274,8 +278,7 @@ def main():
             #
             #resp = zebra_execute(url, token, json_file)
             #resp_list.append(resp)
-            if not no_of_sessions == 1:
-                time.sleep(interval)
+            time.sleep(interval)
 
 
     # for running the debug run
