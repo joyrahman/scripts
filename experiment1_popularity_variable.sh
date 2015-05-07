@@ -2,7 +2,7 @@
 
 output_file_name="var_popularity"
 popularity=-1
-interval=1
+interval=10
 end_limit=5
 #executable="experiment_exp1_loadlevel.py"
 executable="experiment_exp1_popularity.py"
