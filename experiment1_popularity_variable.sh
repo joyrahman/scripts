@@ -2,17 +2,17 @@
 
 output_file_name="var_popularity"
 popularity=-1
-interval=10
+interval=50
 end_limit=5
 #executable="experiment_exp1_loadlevel.py"
 executable="experiment_exp1_popularity.py"
-no_of_sessions=1
+no_of_sessions=3
 
-for i in {0..100}
+for i in {0..100..10}
 do
    echo "running iteration:$i, $j"
    python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
-   ${i} = ${i}+10
+   #${i} = ${i}+10
 done
 
 #python $executable 1 $no_of_sessions 0 "$output_file_name-1_pop0"
