@@ -8,12 +8,17 @@ end_limit=5
 executable="experiment_exp1_popularity.py"
 no_of_sessions=1
 
-for i in 0 50 80
-do
-   echo "running iteration:$i, $j"
-   python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
-done
+#for i in 0 50 80
+#do
+#   echo "running iteration:$i, $j"
+#   python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
+#done
 
+python $executable 1 $no_of_sessions 0 "$output_file_name-1_pop0"
+python $executable 1 $no_of_sessions 50 "$output_file_name-1_pop50"
+python $executable 1 $no_of_sessions 80 "$output_file_name-1_pop80"
+#python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
+#python $executable 1 $no_of_sessions $i "$output_file_name-1_pop$i"
 #for i in 0 10 20 30 40 50 60 70 80 90 100
 #do      
 #   echo "running iteration:$i, $j"
