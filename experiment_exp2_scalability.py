@@ -196,11 +196,17 @@ def usage():
 
 
 def main():
-
+    # url, token = get_url_and_token()
+    #url = os.getenv('OS_STORAGE_URL', None)
+    #token = os.getenv('OS_AUTH_TOKEN', None)
+    max_duration = 700
+    # url, token = get_url_and_token()
+    url = os.getenv('OS_STORAGE_URL', None)
+    token = os.getenv('OS_AUTH_TOKEN', None)
 
     json_file = ''
-    url, token = get_url_and_token()
-    max_duration = 240
+    # url, token = get_url_and_token()
+    #max_duration = 240
 
     global resp_list
 
