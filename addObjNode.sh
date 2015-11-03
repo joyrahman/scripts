@@ -16,7 +16,9 @@ rebalance_ring(){
     swift-ring-builder /etc/swift/account.builder rebalance
     swift-ring-builder /etc/swift/container.builder rebalance
     swift-ring-builder /etc/swift/object.builder rebalance
+    sudo chmod a+rw /etc/swift/*.gz
     sudo swift-init proxy restart
+
 
 }
 copy_to_node(){
@@ -24,7 +26,7 @@ copy_to_node(){
     # $2=> username 
     password="joy123"
     echo "copying to $2@$1"
-    fulldestworker=$2@#1
+    fulldestworker=$2@$1
     scp /etc/swift/*.gz ${fulldestworker}:/etc/swift
     sshpass -p ${password} ssh ${fulldestworker} 'sudo swift-init all restart'
 
