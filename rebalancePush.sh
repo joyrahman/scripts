@@ -45,7 +45,7 @@ for destworker in $(<~/workers); do
      
      #add_to_ring  $destworker $zonename $username $destmaster
      rebalance_ring
-     copy_to_node $destworker $username
+     #copy_to_node $destworker $username
   fi
 done
 
