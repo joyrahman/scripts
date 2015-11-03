@@ -6,7 +6,7 @@ copy_to_node(){
     echo "copying to $2@$1"
     fulldestworker=$2@$1
     scp /etc/swift/*.gz ${fulldestworker}:/etc/swift
-    sshpass -p ${password} ssh ${fulldestworker } 'sudo swift-init all restart'
+    sshpass -p ${password} ssh ${fulldestworker} 'sudo swift-init all restart'
 
 
 }
