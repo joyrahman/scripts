@@ -46,11 +46,12 @@ for destworker in $(<~/workers); do
      echo $destworker $destmaster $username
      
      add_to_ring  $destworker $zonename $username $destmaster
-     rebalance_ring
+
      #copy_to_node $destworker $username
   fi
 done
 
+rebalance_ring
 
 wait
 
