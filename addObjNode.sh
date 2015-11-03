@@ -36,7 +36,7 @@ destmaster="10.20.109.9"
 mkdir -p ./logs
 zonename=1
 
-for destworker in $(<workers); do
+for destworker in $(<~/workers); do
   echo "running"
   if [[ $destworker =~ ^[^\#] ]]
   then
